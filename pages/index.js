@@ -80,30 +80,36 @@ export default function Home() {
     <>
       <div className="wrap">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="player">Player: </label>
-          <input
-            type="text"
-            name="player"
-            id="player"
-            value={formData.player}
-            onChange={handleChange}
-          />
-          <label htmlFor="town">Town: </label>
-          <input
-            type="text"
-            name="town"
-            id="town"
-            value={formData.town}
-            onChange={handleChange}
-          />
-          <label htmlFor="player">Coordinates: </label>
-          <input
-            type="text"
-            name="coordinates"
-            id="coordinates"
-            value={formData.coordinates}
-            onChange={handleChange}
-          />
+          <div>
+            <label htmlFor="player">Player: </label>
+            <input
+              type="text"
+              name="player"
+              id="player"
+              value={formData.player}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="town">Town: </label>
+            <input
+              type="text"
+              name="town"
+              id="town"
+              value={formData.town}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="player">Coordinates: </label>
+            <input
+              type="text"
+              name="coordinates"
+              id="coordinates"
+              value={formData.coordinates}
+              onChange={handleChange}
+            />
+          </div>
           <button type="submit">Submit</button>
         </form>
         <table>

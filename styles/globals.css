@@ -53,6 +53,8 @@ td {
 
 form {
   margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 form,
