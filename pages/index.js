@@ -10,10 +10,12 @@ export default function Home() {
   const [responseMsg, setResponseMsg] = useState("");
   const [table, setTable] = useState([]);
   const [formData, setFormData] = useState({
+    server: "Pangaia 1",
     player: "",
     town: "",
     coordinates: "",
   });
+  const [filterServer, setFilterServer] = useState("Pangaia 1");
 
   useEffect(() => {
     getTable();
@@ -39,6 +41,7 @@ export default function Home() {
       .from("ikariamCulturalThreaty")
       .insert([
         {
+          server: formData.server,
           player: formData.player,
           town: formData.town,
           coordinates: formData.coordinates,
@@ -57,7 +60,7 @@ export default function Home() {
       setResponseMsg("✅ Saved, but no data returned.");
     }
 
-    setFormData({ player: "", town: "", coordinates: "" });
+    setFormData({ server: "Pangaia 1", player: "", town: "", coordinates: "" });
     getTable(); // refresh table immediately
   };
 
@@ -80,6 +83,30 @@ export default function Home() {
     <>
       <div className="wrap">
         <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="server">Player: </label>
+            <select
+              name="server"
+              id="server"
+              value={formData.server}
+              onChange={handleChange}
+            >
+              <option value="Pangaia 1">Pangaia 1</option>
+              <option value="Pangaia 2">Pangaia 2</option>
+              <option value="Pangaia 3">Pangaia 3</option>
+              <option value="Pangaia 4">Pangaia 4</option>
+              <option value="Ares Global 1">Ares Global 1</option>
+              <option value="Ares Global 2">Ares Global 2</option>
+              <option value="Phobos Brazil">Phobos Brazil</option>
+              <option value="Zelus Turkey">Zelus Turkey</option>
+              <option value="Kronos Brazil">Kronos Brazil</option>
+              <option value="Helios Brazil">Helios Brazil</option>
+              <option value="Perseus UK">Perseus UK</option>
+              <option value="Minotaurus Spain">Minotaurus Spain</option>
+              <option value="Medusa Spain">Medusa Spain</option>
+              <option value="Zelus Brazil">Zelus Brazil</option>
+            </select>
+          </div>
           <div>
             <label htmlFor="player">Player: </label>
             <input
@@ -112,9 +139,33 @@ export default function Home() {
           </div>
           <button type="submit">Submit</button>
         </form>
+        <select
+          name="filter-server"
+          id="filter-server"
+          value={filterServer}
+          onChange={(event) => setFilterServer(event.target.value)}
+        >
+          <option value="Pangaia 1" selected>
+            Pangaia 1
+          </option>
+          <option value="Pangaia 2">Pangaia 2</option>
+          <option value="Pangaia 3">Pangaia 3</option>
+          <option value="Pangaia 4">Pangaia 4</option>
+          <option value="Ares Global 1">Ares Global 1</option>
+          <option value="Ares Global 2">Ares Global 2</option>
+          <option value="Phobos Brazil">Phobos Brazil</option>
+          <option value="Zelus Turkey">Zelus Turkey</option>
+          <option value="Kronos Brazil">Kronos Brazil</option>
+          <option value="Helios Brazil">Helios Brazil</option>
+          <option value="Perseus UK">Perseus UK</option>
+          <option value="Minotaurus Spain">Minotaurus Spain</option>
+          <option value="Medusa Spain">Medusa Spain</option>
+          <option value="Zelus Brazil">Zelus Brazil</option>
+        </select>
         <table>
           <thead>
             <tr>
+              <th>Server</th>
               <th>Player</th>
               <th>Town</th>
               <th>Coordinates</th>
@@ -122,16 +173,19 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {table.map((row) => (
-              <tr key={row.id}>
-                <td>{row.player}</td>
-                <td>{row.town}</td>
-                <td>{row.coordinates}</td>
-                <td>
-                  <button onClick={() => handleDelete(row.id)}>X</button>
-                </td>
-              </tr>
-            ))}
+            {table
+              .filter((row) => row.server === filterServer)
+              .map((row) => (
+                <tr key={row.id}>
+                  <td>{row.server}</td>
+                  <td>{row.player}</td>
+                  <td>{row.town}</td>
+                  <td>{row.coordinates}</td>
+                  <td>
+                    <button onClick={() => handleDelete(row.id)}>X</button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <h1>{responseMsg}</h1>
