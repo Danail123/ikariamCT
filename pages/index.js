@@ -106,8 +106,6 @@ export default function Home() {
               <option value="Medusa Spain">Medusa Spain</option>
               <option value="Zelus Brazil">Zelus Brazil</option>
             </select>
-          </div>
-          <div>
             <label htmlFor="player">Player: </label>
             <input
               type="text"
@@ -126,8 +124,6 @@ export default function Home() {
               value={formData.town}
               onChange={handleChange}
             />
-          </div>
-          <div>
             <label htmlFor="player">Coordinates: </label>
             <input
               type="text"
@@ -136,8 +132,8 @@ export default function Home() {
               value={formData.coordinates}
               onChange={handleChange}
             />
+            <button type="submit">Submit</button>
           </div>
-          <button type="submit">Submit</button>
         </form>
         <select
           name="filter-server"
@@ -145,9 +141,7 @@ export default function Home() {
           value={filterServer}
           onChange={(event) => setFilterServer(event.target.value)}
         >
-          <option value="Pangaia 1" selected>
-            Pangaia 1
-          </option>
+          <option value="Pangaia 1">Pangaia 1</option>
           <option value="Pangaia 2">Pangaia 2</option>
           <option value="Pangaia 3">Pangaia 3</option>
           <option value="Pangaia 4">Pangaia 4</option>
