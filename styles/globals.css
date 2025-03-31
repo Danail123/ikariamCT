@@ -52,12 +52,37 @@ td {
 }
 
 form {
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
-form,
 input {
+  margin-left: 5px;
   margin-right: 20px;
+}
+
+select {
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+#filter-label {
+  margin-left: 10px;
+}
+
+table {
+  min-width: 500px;
+}
+
+#table-wrap {
+  overflow-x: auto;
+}
+
+h3 {
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

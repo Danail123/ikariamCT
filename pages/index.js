@@ -111,6 +111,7 @@ export default function Home() {
               type="text"
               name="player"
               id="player"
+              maxLength="30"
               value={formData.player}
               onChange={handleChange}
             />
@@ -121,6 +122,7 @@ export default function Home() {
               type="text"
               name="town"
               id="town"
+              maxLength="30"
               value={formData.town}
               onChange={handleChange}
             />
@@ -129,12 +131,16 @@ export default function Home() {
               type="text"
               name="coordinates"
               id="coordinates"
+              maxLength="10"
               value={formData.coordinates}
               onChange={handleChange}
             />
             <button type="submit">Submit</button>
           </div>
         </form>
+        <label id="filter-label" htmlFor="filter-server">
+          Filter:
+        </label>
         <select
           name="filter-server"
           id="filter-server"
@@ -156,33 +162,35 @@ export default function Home() {
           <option value="Medusa Spain">Medusa Spain</option>
           <option value="Zelus Brazil">Zelus Brazil</option>
         </select>
-        <table>
-          <thead>
-            <tr>
-              <th>Server</th>
-              <th>Player</th>
-              <th>Town</th>
-              <th>Coordinates</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {table
-              .filter((row) => row.server === filterServer)
-              .map((row) => (
-                <tr key={row.id}>
-                  <td>{row.server}</td>
-                  <td>{row.player}</td>
-                  <td>{row.town}</td>
-                  <td>{row.coordinates}</td>
-                  <td>
-                    <button onClick={() => handleDelete(row.id)}>X</button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <h1>{responseMsg}</h1>
+        <h3>{responseMsg}</h3>
+        <div id="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Server</th>
+                <th>Player</th>
+                <th>Town</th>
+                <th>Coordinates</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {table
+                .filter((row) => row.server === filterServer)
+                .map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.server}</td>
+                    <td>{row.player}</td>
+                    <td>{row.town}</td>
+                    <td>{row.coordinates}</td>
+                    <td>
+                      <button onClick={() => handleDelete(row.id)}>X</button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
