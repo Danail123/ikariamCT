@@ -181,7 +181,8 @@ export default function Home() {
               {deleteKey && (
                 <>
                   <p>
-                    Here is your delete code:
+                    Here is your delete code. Make sure you save it. <br />
+                    You will need it to delete your entry later: <br />
                     <code style={{ marginLeft: "0.5rem" }}>{deleteKey}</code>
                   </p>
                   <button
