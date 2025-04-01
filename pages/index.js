@@ -84,7 +84,7 @@ export default function Home() {
       <div className="wrap">
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="server">Player: </label>
+            <label htmlFor="server">Server: </label>
             <select
               name="server"
               id="server"
