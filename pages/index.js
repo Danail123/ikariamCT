@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { nanoid } from "nanoid"; // or use your own generator
 
 const supabase = createClient(
   "https://vbynizskqctrogrjshkb.supabase.co",
@@ -16,6 +17,7 @@ export default function Home() {
     coordinates: "",
   });
   const [filterServer, setFilterServer] = useState("Pangaia 1");
+  const [deleteKey, setDeleteKey] = useState("");
 
   useEffect(() => {
     getTable();
@@ -36,6 +38,7 @@ export default function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const deleteKey = nanoid(); // store this in localStorage or cookie
 
     const { data, error } = await supabase
       .from("ikariamCulturalThreaty")
@@ -45,6 +48,7 @@ export default function Home() {
           player: formData.player,
           town: formData.town,
           coordinates: formData.coordinates,
+          delete_key: deleteKey,
         },
       ])
       .select();
@@ -56,6 +60,7 @@ export default function Home() {
     }
     if (data && data.length > 0) {
       setResponseMsg(`✅ Saved player ${data[0].player}`);
+      setDeleteKey(deleteKey);
     } else {
       setResponseMsg("✅ Saved, but no data returned.");
     }
@@ -65,10 +70,11 @@ export default function Home() {
   };
 
   const handleDelete = async (id) => {
+    const deleteKey = prompt("Please enter delete code: ");
     const { error } = await supabase
       .from("ikariamCulturalThreaty")
       .delete()
-      .eq("id", id);
+      .match({ id: id, delete_key: deleteKey });
 
     if (error) {
       console.error("Delete error:", error.message);
@@ -162,7 +168,35 @@ export default function Home() {
           <option value="Medusa Spain">Medusa Spain</option>
           <option value="Zelus Brazil">Zelus Brazil</option>
         </select>
-        <h3>{responseMsg}</h3>
+        <h3>
+          {responseMsg && (
+            <div
+              style={{
+                marginTop: "1rem",
+                // background: "#eee",
+                padding: "1rem",
+              }}
+            >
+              <strong>{responseMsg}</strong>
+              {deleteKey && (
+                <>
+                  <p>
+                    Here is your delete code:
+                    <code style={{ marginLeft: "0.5rem" }}>{deleteKey}</code>
+                  </p>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(deleteKey);
+                      alert("Delete code copied to clipboard!");
+                    }}
+                  >
+                    Copy Code
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </h3>
         <div id="table-wrap">
           <table>
             <thead>
