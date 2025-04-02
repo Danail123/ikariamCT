@@ -120,6 +120,7 @@ export default function Home() {
               maxLength="30"
               value={formData.player}
               onChange={handleChange}
+              required
             />
           </div>
           <div>
@@ -131,6 +132,7 @@ export default function Home() {
               maxLength="30"
               value={formData.town}
               onChange={handleChange}
+              required
             />
             <label htmlFor="player">Coordinates: </label>
             <input
@@ -140,6 +142,7 @@ export default function Home() {
               maxLength="10"
               value={formData.coordinates}
               onChange={handleChange}
+              required
             />
             <button type="submit">Submit</button>
           </div>
